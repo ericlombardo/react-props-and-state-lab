@@ -5,7 +5,7 @@ class Pet extends React.Component {
     return (
       <div className="card">
         <div className="content">
-          <a className="header">
+          <a className="header" href="#">
             {/*'♀' OR '♂' */}
             PET NAME
           </a>
