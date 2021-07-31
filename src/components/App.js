@@ -21,16 +21,17 @@ class App extends React.Component {
         type: newType
       }
     })
-   
   }
 
 
-  findPets() {
-    return fetch('/api/pets')
+  findPets = () => {
+    debugger
+    fetch('/api/pets')
     .then(resp => resp.json())
     .then(data => {
-      const pets = data
-      return pets
+      console.log(data)
+      // const pets = data
+      // return pets
     })
   } 
 
