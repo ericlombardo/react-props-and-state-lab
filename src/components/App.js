@@ -15,24 +15,36 @@ class App extends React.Component {
     }
   }
 
-  handleChangeType(newType) {
+  onChangeType = (newType) => { // sets state to selected
     this.setState({
       filters: {
-        type: newType
+        type: newType.target.value
       }
     })
   }
 
+  findPets = () => { // gets pets based on filter
+    if (this.state.filters.type === 'all') {
+      fetch('/api/pets')
+      .then(resp => resp.json())
+      .then(data => {
+        this.setState({
+          pets: data
+        })
+      })
+    } else {
+      fetch(`/api/pets?type=${this.state.filters.type}`)
+      .then(resp => resp.json())
+      .then(data => {
+        this.setState({
+          pets: data
+        })
+      })
+    }
+  }
 
-  findPets = () => {
-    debugger
-    fetch('/api/pets')
-    .then(resp => resp.json())
-    .then(data => {
-      console.log(data)
-      // const pets = data
-      // return pets
-    })
+  componentDidMount(){ // gets pets when mounted
+    this.findPets()
   } 
 
   render() {
@@ -42,15 +54,16 @@ class App extends React.Component {
           <h1 className="ui dividing header">React Animal Shelter</h1>
         </header>
         <div className="ui container">
+          { console.log(this.state.pets)}
           <div className="ui grid">
             <div className="four wide column">
               <Filters 
-                onChangeType={() => this.handleChangeType()}
-                onFindPetsClick={() => this.findPets()}
+                onChangeType={this.onChangeType}
+                onFindPetsClick={this.findPets}
               />
             </div>
             <div className="twelve wide column">
-              <PetBrowser findPets={() => this.findPets()} />
+              <PetBrowser pets={this.state.pets} />
             </div>
           </div>
         </div>
