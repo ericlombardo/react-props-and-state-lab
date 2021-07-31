@@ -44,12 +44,12 @@ class App extends React.Component {
           <div className="ui grid">
             <div className="four wide column">
               <Filters 
-                onChangeType={this.handleChangeType}
-                onFindPetsClick={this.findPets()}
+                onChangeType={() => this.handleChangeType()}
+                onFindPetsClick={() => this.findPets()}
               />
             </div>
             <div className="twelve wide column">
-              <PetBrowser findPets={this.findPets} />
+              <PetBrowser findPets={() => this.findPets()} />
             </div>
           </div>
         </div>
